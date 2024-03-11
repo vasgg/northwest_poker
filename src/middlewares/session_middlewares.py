@@ -4,7 +4,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import Message
 from sqlalchemy.exc import PendingRollbackError
 
-from src.database.db import db
+from database.db import db
 
 
 class DBSessionMiddleware(BaseMiddleware):
