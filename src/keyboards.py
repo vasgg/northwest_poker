@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from src.enums import Entities
+from enums import Entities
 
 registration_keyboard = InlineKeyboardMarkup(
     inline_keyboard=[
