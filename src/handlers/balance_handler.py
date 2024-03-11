@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from config import settings
 from database.crud.user import add_record_to_db
 from database.models.user import User
-from enums import Entities, States
+from enums import AttachType, Entities, States
 from internal.blink1 import blink1_yellow
 from internal.texts import replies
 from keyboards import get_confirmation_keyboard
@@ -46,7 +46,14 @@ async def change_amount(call: types.CallbackQuery, state: FSMContext) -> None:
 async def input_screenshot(message: types.Message, state: FSMContext, user: User, db_session) -> None:
     telegram_user_info = '@' + message.from_user.username if user.username else message.from_user.full_name
     data = await state.get_data()
-    image_id = message.photo[-1].file_id if message.photo else message.document.file_id
+    if message.photo:
+        docunent_id = message.photo[-1].file_id
+        attach_type = AttachType.PHOTO
+    elif message.document:
+        docunent_id = message.document.file_id
+        attach_type = AttachType.DOCUMENT
+    else:
+        return
     amount = data['amount']
     await message.answer(text=replies['add_funds_process_сomplete'])
     record_id = await add_record_to_db(user_id=user.id,
@@ -54,14 +61,24 @@ async def input_screenshot(message: types.Message, state: FSMContext, user: User
                                        rate=settings.RATE,
                                        coins_amount=amount,
                                        summ=amount * settings.RATE,
-                                       image_id=image_id,
+                                       attach_type=attach_type,
+                                       attach_id=docunent_id,
                                        db_session=db_session)
+    if attach_type == AttachType.PHOTO:
+        await message.bot.send_photo(chat_id=settings.CHAT_ID,
+                                     photo=docunent_id,
+                                     caption=replies['new_request'].format(record_id,
+                                                                           telegram_user_info,
+                                                                           user.nickname,
+                                                                           amount,
+                                                                           amount * settings.RATE))
+    else:
+        await message.bot.send_document(chat_id=settings.CHAT_ID,
+                                        document=docunent_id,
+                                        caption=replies['new_request'].format(record_id,
+                                                                              telegram_user_info,
+                                                                              user.nickname,
+                                                                              amount,
+                                                                              amount * settings.RATE))
     await blink1_yellow()
-    await message.bot.send_photo(chat_id=settings.CHAT_ID,
-                                 photo=image_id,
-                                 caption=replies['new_request'].format(record_id,
-                                                                       telegram_user_info,
-                                                                       user.nickname,
-                                                                       amount,
-                                                                       amount * settings.RATE))
     await state.set_state()

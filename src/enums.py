@@ -18,3 +18,8 @@ class Status(Enum):
     PENDING = 'pending'
     DONE = 'done'
     CANCELED = 'canceled'
+
+
+class AttachType(Enum):
+    DOCUMENT = 'document'
+    PHOTO = 'photo'

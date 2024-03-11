@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.models.records import Record
 from database.models.user import User
-from enums import Status
+from enums import AttachType, Status
 from internal.blink1 import blink1_yellow
 
 
@@ -33,7 +33,7 @@ async def user_registration(user: User, nickname: str, db_session: AsyncSession)
 
 
 async def add_record_to_db(
-        user_id: int, username: str, coins_amount: int, summ: int, rate: int, image_id: str, db_session: AsyncSession
+        user_id: int, username: str, coins_amount: int, summ: int, rate: int, attach_id: str, attach_type: AttachType, db_session: AsyncSession
 ) -> Record.id:
     new_record = Record(
         user_id=user_id,
@@ -42,7 +42,8 @@ async def add_record_to_db(
         coins_amount=coins_amount,
         summ=summ,
         status=Status.PENDING,
-        image_id=image_id
+        attach_id=attach_id,
+        attach_type=attach_type,
     )
     db_session.add(new_record)
     await db_session.flush()

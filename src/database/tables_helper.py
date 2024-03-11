@@ -2,12 +2,12 @@ import asyncio
 
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from src.database.models.base import Base
+from database.models.base import Base
 
 # noinspection PyUnresolvedReferences
-import src.database.models.user
+import database.models.user
 # noinspection PyUnresolvedReferences
-import src.database.models.records
+import database.models.records
 
 
 async def create_or_drop_db(engine: AsyncEngine):
