@@ -1,6 +1,6 @@
 from aiogram import Bot
 
-from src.config import settings
+from config import settings
 
 
 async def on_startup_notify(bot: Bot):
