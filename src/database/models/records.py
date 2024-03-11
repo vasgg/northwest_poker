@@ -1,8 +1,8 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.database.models.base import Base
-from src.enums import Status
+from database.models.base import Base
+from enums import Status
 
 
 class Record(Base):
