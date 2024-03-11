@@ -4,11 +4,11 @@ from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.crud.user import user_registration
-from src.database.models.user import User
-from src.enums import Entities, States
-from src.internal.texts import replies
-from src.keyboards import get_confirmation_keyboard, registration_keyboard
+from database.crud.user import user_registration
+from database.models.user import User
+from enums import Entities, States
+from internal.texts import replies
+from keyboards import get_confirmation_keyboard, registration_keyboard
 
 router = Router()
 logger = logging.getLogger()

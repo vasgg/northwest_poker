@@ -1,13 +1,13 @@
 from aiogram import F, Router, types
 from aiogram.fsm.context import FSMContext
 
-from src.config import settings
-from src.database.crud.user import add_record_to_db
-from src.database.models.user import User
-from src.enums import Entities, States
-from src.internal.blink1 import blink1_yellow
-from src.internal.texts import replies
-from src.keyboards import get_confirmation_keyboard
+from config import settings
+from database.crud.user import add_record_to_db
+from database.models.user import User
+from enums import Entities, States
+from internal.blink1 import blink1_yellow
+from internal.texts import replies
+from keyboards import get_confirmation_keyboard
 
 router = Router()
 

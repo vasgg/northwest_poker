@@ -3,11 +3,11 @@ from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 
 
-from src.enums import States
-from src.internal.blink1 import blink1_red
-from src.internal.texts import replies
-from src.keyboards import registration_keyboard
-from src.database.models.user import User
+from enums import States
+from internal.blink1 import blink1_red
+from internal.texts import replies
+from keyboards import registration_keyboard
+from database.models.user import User
 
 router = Router()
 

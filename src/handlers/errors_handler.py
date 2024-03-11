@@ -5,7 +5,7 @@ import typing
 import aiogram
 from aiogram import Router
 
-from src.config import settings
+from config import settings
 
 if typing.TYPE_CHECKING:
     from aiogram.types.error_event import ErrorEvent
