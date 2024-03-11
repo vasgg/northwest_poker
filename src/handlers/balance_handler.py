@@ -10,6 +10,7 @@ from internal.texts import replies
 from keyboards import get_confirmation_keyboard
 
 router = Router()
+media_filter = F.photo | F.document
 
 
 @router.message(States.INPUT_AMOUNT)
@@ -40,12 +41,12 @@ async def change_amount(call: types.CallbackQuery, state: FSMContext) -> None:
     await state.set_state(States.INPUT_AMOUNT)
 
 
-@router.message(F.photo)
+@router.message(media_filter)
 @router.message(States.INPUT_SCREENSHOT)
 async def input_screenshot(message: types.Message, state: FSMContext, user: User, db_session) -> None:
     telegram_user_info = '@' + message.from_user.username if user.username else message.from_user.full_name
     data = await state.get_data()
-    image_id = message.photo[-1].file_id
+    image_id = message.photo[-1].file_id if message.photo else message.document.file_id
     amount = data['amount']
     await message.answer(text=replies['add_funds_process_сomplete'])
     record_id = await add_record_to_db(user_id=user.id,
