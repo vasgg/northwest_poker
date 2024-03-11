@@ -6,15 +6,15 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from src.handlers.command_handlers import router as base_router
-from src.handlers.errors_handler import router as errors_router
-from src.handlers.registration_handler import router as registration_router
-from src.handlers.balance_handler import router as balance_router
-from src.internal.commands import set_bot_commands
-from src.internal.notify_admin import on_shutdown_notify, on_startup_notify
-from src.middlewares.auth_middleware import AuthMiddleware
-from src.middlewares.session_middlewares import DBSessionMiddleware
-from src.middlewares.updates_dumper_middleware import UpdatesDumperMiddleware
+from handlers.command_handlers import router as base_router
+from handlers.errors_handler import router as errors_router
+from handlers.registration_handler import router as registration_router
+from handlers.balance_handler import router as balance_router
+from internal.commands import set_bot_commands
+from internal.notify_admin import on_shutdown_notify, on_startup_notify
+from middlewares.auth_middleware import AuthMiddleware
+from middlewares.session_middlewares import DBSessionMiddleware
+from middlewares.updates_dumper_middleware import UpdatesDumperMiddleware
 from config import get_logging_config, settings
 
 
