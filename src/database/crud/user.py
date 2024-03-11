@@ -1,10 +1,10 @@
 from sqlalchemy import Result, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database.models.records import Record
-from src.database.models.user import User
-from src.enums import Status
-from src.internal.blink1 import blink1_yellow
+from database.models.records import Record
+from database.models.user import User
+from enums import Status
+from internal.blink1 import blink1_yellow
 
 
 async def add_user_to_db(event, db_session) -> User:
