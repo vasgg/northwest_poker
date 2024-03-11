@@ -22,7 +22,7 @@ dependencies = [
     "aiosqlite>=0.19",
     "greenlet>=3.0.3",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 
 [tool.setuptools]
 zip-safe = false
