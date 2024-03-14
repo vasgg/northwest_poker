@@ -7,6 +7,8 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     BOT_TOKEN: SecretStr
     NGROK_URL: SecretStr
+    NGROK_USER: SecretStr
+    NGROK_PASS: SecretStr
     TELEPHONE: SecretStr
     ADMINS: list[int]
     CHAT_ID: int
