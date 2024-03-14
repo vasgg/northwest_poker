@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from database.models.base import Base
-from enums import Status, AttachType
+from internal.enums import OperationType, Status, AttachType
 
 
 class Record(Base):
@@ -14,5 +14,7 @@ class Record(Base):
     coins_amount: Mapped[int]
     summ: Mapped[int]
     status: Mapped[Status]
-    attach_type: Mapped[AttachType]
-    attach_id: Mapped[str]
+    operation: Mapped[OperationType]
+    attach_type: Mapped[AttachType | None]
+    attach_id: Mapped[str | None]
+    message_id: Mapped[int | None]

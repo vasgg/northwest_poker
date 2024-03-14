@@ -12,6 +12,8 @@ class User(Base):
     last_name: Mapped[str | None]
     username: Mapped[str | None] = mapped_column(String(32))
     nickname: Mapped[str | None]
+    telephone: Mapped[str | None]
+    bank: Mapped[str | None]
 
     def __str__(self):
         return (

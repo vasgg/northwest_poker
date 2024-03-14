@@ -3,8 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.models.records import Record
 from database.models.user import User
-from enums import AttachType, Status
-from internal.blink1 import blink1_yellow
+from internal.enums import AttachType, OperationType, Status
 
 
 async def add_user_to_db(event, db_session) -> User:
@@ -26,6 +25,13 @@ async def get_user_from_db(event, db_session: AsyncSession) -> User:
     return user
 
 
+async def get_user_by_id(user_id: int, db_session: AsyncSession) -> User:
+    query = select(User).filter(User.id == user_id)
+    result: Result = await db_session.execute(query)
+    user = result.scalar_one_or_none()
+    return user
+
+
 async def user_registration(user: User, nickname: str, db_session: AsyncSession) -> None:
     query = update(User).filter(User.telegram_id == user.telegram_id).values(nickname=nickname)
     await db_session.execute(query)
@@ -33,19 +39,28 @@ async def user_registration(user: User, nickname: str, db_session: AsyncSession)
 
 
 async def add_record_to_db(
-        user_id: int, username: str, coins_amount: int, summ: int, rate: int, attach_id: str, attach_type: AttachType, db_session: AsyncSession
+        user_id: int,
+        username: str,
+        operation: OperationType,
+        status: Status,
+        coins_amount: int,
+        summ: int,
+        rate: int,
+        db_session: AsyncSession,
+        attach_id: str | None = None,
+        attach_type: AttachType | None = None,
 ) -> Record.id:
     new_record = Record(
         user_id=user_id,
         username=username,
+        operation=operation,
         rate=rate,
         coins_amount=coins_amount,
         summ=summ,
-        status=Status.PENDING,
+        status=status,
         attach_id=attach_id,
         attach_type=attach_type,
     )
     db_session.add(new_record)
     await db_session.flush()
-    await blink1_yellow()
     return new_record.id
