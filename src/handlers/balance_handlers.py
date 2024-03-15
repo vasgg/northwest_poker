@@ -59,7 +59,11 @@ async def input_media(message: types.Message, state: FSMContext, user: User, db_
         attach_type = AttachType.DOCUMENT
     else:
         return
-    amount = data['deposit_amount']
+    try:
+        amount = data['deposit_amount']
+    except KeyError:
+        await message.answer(text=replies['error_reply'])
+        return
     record_id = await add_record_to_db(user_id=user.id,
                                        username=telegram_user_info,
                                        operation=OperationType.DEPOSIT,
