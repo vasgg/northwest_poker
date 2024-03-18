@@ -1,5 +1,6 @@
 import asyncio
 import logging.config
+from pathlib import Path
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
@@ -20,6 +21,8 @@ from config import get_logging_config, settings
 
 
 async def main():
+    logs_directory = Path(f"logs")
+    logs_directory.mkdir(parents=True, exist_ok=True)
     logging_config = get_logging_config('northwest_poker')
     logging.config.dictConfig(logging_config)
 
