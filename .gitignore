@@ -15,6 +15,7 @@ logs
 .ipynb_checkpoints
 
 .env
+credentials.json
 .venv
 env/
 venv/

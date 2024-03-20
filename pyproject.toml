@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "northwest_poker_bot"
 description = ""
-version = "0.0.1"
+version = "1.2"
 authors = [
     { name = "vasgg", email = "vas.g@me.com" },
 ]
@@ -22,20 +22,10 @@ dependencies = [
     "aiosqlite>=0.19",
     "greenlet>=3.0.3",
     "arrow>=1.3.0",
+    "gspread>=6.0.2",
+    "oauth2client>=4.1.3",
 ]
 requires-python = ">=3.10"
-
-[tool.setuptools]
-zip-safe = false
-include-package-data = false
-
-[options]
-zip_safe = false
-include_package_data = true
-
-[options.packages.find]
-namespace = true
-include = ["src*"]
 
 [project.scripts]
 bot-run = "main:run_main"
