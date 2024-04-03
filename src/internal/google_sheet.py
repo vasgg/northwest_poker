@@ -1,16 +1,10 @@
-import asyncio
+import aiohttp
+from aiohttp import BasicAuth
+from config import settings
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
 
-
-async def update_google_sheet(cell: str, value: str):
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
-    client = gspread.authorize(credentials)
-
-    spreadsheet = client.open("users_counter")
-    worksheet = spreadsheet.sheet1
-
-    await asyncio.to_thread(worksheet.update, cell, [[value]])
+async def sheet_update(cell: str, value: int):
+    async with aiohttp.ClientSession() as session:
+        auth = BasicAuth(settings.NGROK_USER.get_secret_value(), settings.NGROK_PASS.get_secret_value())
+        ngrok_url = settings.NGROK_URL.get_secret_value()
+        await session.get(ngrok_url + f'update/sheet/{cell}/{value}', auth=auth)
