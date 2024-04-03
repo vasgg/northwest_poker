@@ -6,8 +6,11 @@ from aiogram.types import Message
 import gspread
 import requests
 
+from config import settings
 from database.crud.user import add_user_to_db, get_user_from_db
-from internal.google_sheet import update_google_sheet
+from internal.blink1 import blink1_red
+from internal.enums import Stage
+from internal.google_sheet import sheet_update
 
 logger = logging.getLogger()
 
@@ -24,15 +27,9 @@ class AuthMiddleware(BaseMiddleware):
         data['is_new_user'] = False
         if not user:
             user = await add_user_to_db(event, session)
-            try:
-                await update_google_sheet('B2', user.id)
-                logger.info(f'google sheet is updated with value {user.id}')
-            except gspread.exceptions.APIError as e:
-                logger.error(f'API Google Sheets error: {e}', exc_info=True)
-            except requests.exceptions.RequestException as e:
-                logger.error(f'Network error while updating Google Sheets: {e}', exc_info=True)
-            except Exception as e:
-                logger.exception(f'Unexpected error while updating Google Sheet: {e}')
             data['is_new_user'] = True
+            if settings.STAGE == Stage.PROD:
+                await blink1_red()
+                await sheet_update('C2', user.id)
         data['user'] = user
         return await handler(event, data)
