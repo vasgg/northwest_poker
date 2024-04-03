@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, StrEnum, auto
 
 from aiogram.filters.state import State, StatesGroup
 
@@ -20,34 +20,39 @@ class SettingsStates(StatesGroup):
 
 class Entities(Enum):
     NICK = 'nick'
-    DEPOSIT_AMOUNT = 'deposit_amount'
-    WITHDRAW_TELEPHONE = 'withdraw_telephone'
-    WITHDRAW_AMOUNT = 'withdraw_amount'
-    WITHDRAW_BANK = 'withdraw_bank'
+    DEPOSIT_AMOUNT = auto()
+    WITHDRAW_TELEPHONE = auto()
+    WITHDRAW_AMOUNT = auto()
+    WITHDRAW_BANK = auto()
 
 
 class SettingsEntities(Enum):
-    NICKNAME = 'nickname'
-    TELEPHONE = 'telephone'
-    BANK = 'bank'
+    NICKNAME = auto()
+    TELEPHONE = auto()
+    BANK = auto()
 
 
 class Action(Enum):
-    CONFIRM = 'confirm'
-    REJECT = 'reject'
+    CONFIRM = auto()
+    REJECT = auto()
 
 
 class Status(Enum):
-    PENDING = 'pending'
-    DONE = 'done'
-    CANCELED = 'canceled'
+    PENDING = auto()
+    DONE = auto()
+    CANCELED = auto()
 
 
 class AttachType(Enum):
-    DOCUMENT = 'document'
-    PHOTO = 'photo'
+    DOCUMENT = auto()
+    PHOTO = auto()
 
 
 class OperationType(Enum):
-    DEPOSIT = 'deposit'
-    WITHDRAW = 'withdraw'
+    DEPOSIT = auto()
+    WITHDRAW = auto()
+
+
+class Stage(StrEnum):
+    DEV = auto()
+    PROD = auto()

@@ -3,6 +3,8 @@ from logging.handlers import RotatingFileHandler
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings
 
+from internal.enums import Stage
+
 
 class Settings(BaseSettings):
     BOT_TOKEN: SecretStr
@@ -14,6 +16,7 @@ class Settings(BaseSettings):
     CHAT_ID: int
     RATE: int
     DB_NAME: str
+    STAGE: Stage
     db_echo: bool = False
 
     @property
