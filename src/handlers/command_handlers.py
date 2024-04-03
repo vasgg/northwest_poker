@@ -4,7 +4,6 @@ from aiogram.fsm.context import FSMContext
 import arrow
 
 from database.models.user import User
-from internal.blink1 import blink1_red
 from internal.enums import States
 from internal.keyboards import get_info_keyboard, registration_keyboard
 from internal.texts import replies
@@ -19,7 +18,6 @@ async def start_message(
     await state.clear()
     if is_new_user:
         await message.answer(text=replies['hello_new_user'], reply_markup=registration_keyboard)
-        await blink1_red()
         return
     elif user.nickname:
         await message.answer(text=replies['hello_existing_user_with_nickname'])

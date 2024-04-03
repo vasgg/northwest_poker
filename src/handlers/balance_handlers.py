@@ -7,7 +7,6 @@ from database.crud.record import get_record_by_id
 from database.crud.user import add_record_to_db
 from database.models.user import User
 from internal.enums import AttachType, Entities, OperationType, States, Status
-from internal.blink1 import blink1_green, blink1_magenta
 from internal.texts import replies
 from internal.keyboards import get_confirmation_keyboard, get_operation_keyboard
 
@@ -94,7 +93,6 @@ async def input_media(message: types.Message, state: FSMContext, user: User, db_
     record.message_id = message.message_id
     db_session.add(record)
     await db_session.commit()
-    await blink1_green()
     await state.set_state()
 
 
@@ -158,5 +156,4 @@ async def confirm_withdraw_amount(call: types.CallbackQuery, user: User, state: 
             record.message_id = message.message_id
             db_session.add(record)
             await db_session.commit()
-            await blink1_magenta()
             await state.set_state()

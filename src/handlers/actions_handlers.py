@@ -6,7 +6,6 @@ from config import settings
 from database.crud.record import get_record_by_id
 from database.crud.user import get_user_by_id
 from database.models.user import User
-from internal.blink1 import blink1_yellow
 from internal.enums import Action, OperationType, SettingsEntities, SettingsStates, Status
 from internal.keyboards import OperationCallbackFactory, SettingsCallbackFactory, SettingsConfirmationCallbackFactory, get_info_confirmation_keyboard
 from internal.texts import replies
@@ -78,7 +77,6 @@ async def action_button_processing(
     reply_message = replies['action_confirm_report'].format(record_id) if action == Action.CONFIRM \
         else replies['action_reject_report'].format(record_id)
     await callback.bot.send_message(chat_id=user_for_reply.telegram_id, text=reply_message)
-    await blink1_yellow()
     await state.clear()
 
 
