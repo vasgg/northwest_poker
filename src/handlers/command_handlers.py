@@ -30,7 +30,7 @@ async def balance_command(message: types.Message, user: User, state: FSMContext)
     if not user.nickname:
         await message.answer(text=replies['balance_without_registration'], reply_markup=registration_keyboard)
         return
-    await message.answer(text=replies['add_funds_reply'])
+    await message.answer(text=replies['add_funds_reply'].format(settings.RATE))
     await state.set_state(States.INPUT_DEPOSIT_AMOUNT)
 
 
@@ -39,7 +39,7 @@ async def withdraw_command(message: types.Message, user: User, state: FSMContext
     if not user.nickname:
         await message.answer(text=replies['withdraw_without_registration'], reply_markup=registration_keyboard)
         return
-    await message.answer(text=replies['withdraw_funds_reply'])
+    await message.answer(text=replies['withdraw_funds_reply'].format(settings.RATE))
     await state.set_state(States.INPUT_WITHDRAW_AMOUNT)
 
 

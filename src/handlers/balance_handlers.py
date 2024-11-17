@@ -23,7 +23,7 @@ async def input_amount(message: types.Message, state: FSMContext) -> None:
         await state.update_data(deposit_amount=amount)
         await state.set_state()
     except ValueError:
-        await message.answer(text=replies['add_funds_error_reply'])
+        await message.answer(text=replies['add_funds_error_reply'].format(settings.RATE))
         return
 
 
@@ -31,7 +31,7 @@ async def input_amount(message: types.Message, state: FSMContext) -> None:
 async def change_amount(call: types.CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await call.message.edit_reply_markup()
-    await call.message.answer(text=replies['add_funds_reply'])
+    await call.message.answer(text=replies['add_funds_reply'].format(settings.RATE))
     await state.set_state(States.INPUT_DEPOSIT_AMOUNT)
 
 
@@ -105,7 +105,7 @@ async def input_withdraw_amount(message: types.Message, state: FSMContext) -> No
         await state.update_data(withdraw_amount=amount)
         await state.set_state()
     except ValueError:
-        await message.answer(text=replies['withdraw_funds_error_reply'])
+        await message.answer(text=replies['withdraw_funds_error_reply'].format(settings.RATE))
         return
 
 
@@ -113,7 +113,7 @@ async def input_withdraw_amount(message: types.Message, state: FSMContext) -> No
 async def change_withdraw_amount(call: types.CallbackQuery, state: FSMContext) -> None:
     await call.answer()
     await call.message.edit_reply_markup()
-    await call.message.answer(text=replies['withdraw_funds_reply'])
+    await call.message.answer(text=replies['withdraw_funds_reply'].format(settings.RATE))
     await state.set_state(States.INPUT_WITHDRAW_AMOUNT)
 
 
