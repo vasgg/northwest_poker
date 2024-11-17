@@ -2,6 +2,7 @@ from aiogram import Router, types
 from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 import arrow
+from config import settings
 
 from database.models.user import User
 from internal.enums import States
